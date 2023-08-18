@@ -12,19 +12,13 @@ Visit http://localhost:8080.
 
 ### Build
 
-1. Build binary:
-
-    ```shell
-    ./gradlew clean build installDist
-    ```
-
-2. Build Docker image:
+1. Build Docker image:
 
     ```shell
     docker build . -t getting-started
     ```
 
-3. Run Docker image:
+2. Run Docker image:
 
     ```shell
     docker run -p 8080:8080 getting-started
