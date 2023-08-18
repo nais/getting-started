@@ -1,1 +1,1 @@
-rootProject.name = "KotlinApp"
+rootProject.name = "getting-started"
