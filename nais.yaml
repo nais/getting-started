@@ -1,0 +1,20 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    team: onboarding
+  name: <my-app>
+  namespace: onboarding
+spec:
+  ingresses:
+    - https://<my-app>.intern.dev.nav.no
+  image: europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
+  port: 8080
+  ttl: 3h
+  replicas:
+    max: 1
+    min: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 32Mi 
