@@ -8,7 +8,7 @@ metadata:
 spec:
   ingresses:
     - https://<my-app>.intern.dev.nav.no
-  image: europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
+  image: {{image}}
   port: 8080
   ttl: 3h
   replicas:
