@@ -1,26 +1,3 @@
-FROM eclipse-temurin:17 as jre-build
-
-COPY . .
-
-RUN ./gradlew clean build installDist
-
-RUN $JAVA_HOME/bin/jlink \
-    --add-modules ALL-MODULE-PATH \
-    --strip-debug \
-    --no-man-pages \
-    --no-header-files \
-    --compress=2 \
-    --output /javaruntime
-
-# Runtime
-FROM debian:buster-slim
-
-ENV TZ="Europe/Oslo"
-ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH "${JAVA_HOME}/bin:${PATH}"
-
-COPY --from=jre-build /javaruntime $JAVA_HOME
-COPY --from=jre-build build/install/* /
-
-USER nobody
+FROM eclipse-temurin:17-jre-alpine
+COPY build/install/* /
 CMD ["getting-started"]
