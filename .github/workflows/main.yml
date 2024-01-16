@@ -3,7 +3,7 @@ on: [ push ]
 
 jobs:
   build:
-    name: Build and deploy
+    name: Build JAR
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,23 +20,3 @@ jobs:
         uses: gradle/gradle-build-action@v2.7.1
         with:
           arguments: --configuration-cache build installDist
-      - name: Push docker image to Google Artifact Registry
-        uses: nais/docker-build-push@v0
-        id: docker-build-push
-        with:
-          team: onboarding
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          salsa: false
-  deploy:
-    name: Deploy to NAIS
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: nais/deploy/actions/deploy@v2
-      env:
-        CLUSTER: dev-gcp
-        RESOURCE: nais.yaml
-        VAR: image=${{ needs.build.outputs.image }}
-
